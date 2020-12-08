@@ -25,7 +25,7 @@ In addition, we will:
 Copy and paste the following in your terminal:
 
 ```
-bash -c "$(curl -sS https://raw.githubusercontent.com/gocodeup/codeup-setup-script/master/install.sh)"
+bash -c "$(curl -sS https://raw.githubusercontent.com/gocodeup/codeup-setup-script/m1-mac-script/install.sh"
 ```
 
 ## Note for Instructors
