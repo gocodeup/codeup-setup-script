@@ -44,26 +44,26 @@ install-java(){
     echo 'with a version of java, it may not be the most recent version, and we want'
     echo 'to make sure everyone is on the same version.'
     wait-to-continue
-	brew tap AdoptOpenJDK/openjdk
-	brew cask install adoptopenjdk8 adoptopenjdk11
+	arch -x86_64 brew tap AdoptOpenJDK/openjdk
+	arch -x86_64 brew cask install adoptopenjdk8 adoptopenjdk11
 }
 
 install-tomcat(){
     echo 'We are now going to install tomcat, the java web server we will use for this course'
     wait-to-continue
-    brew install tomcat
+    arch -x86_64 brew install tomcat
 }
 
 install-maven(){
     echo 'We will now install maven, a build tool and dependency manager for java'
     wait-to-continue
-    brew install maven
+    arch -x86_64 brew install maven
 }
 
 install-brew(){
     echo 'We are now going to install homebrew, a package manager for OSX.'
     wait-to-continue
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
 }
 
 setup-ssh-keys(){
@@ -102,16 +102,16 @@ install-mysql(){
     echo 'from this computer'
     wait-to-continue
 
-    brew install mysql@5.7
+    arch -x86_64 brew install mysql@5.7
 
-    brew link mysql@5.7 --force
+    arch -x86_64 brew link mysql@5.7 --force
 
     # start the mysql server
-    mysql.server start
+    arch -x86_64 mysql.server start
 
     # set a password for the root user, make sure no other users exist, and drop
     # the test db. Set the root password to 'codeup'
-    mysql -u root <<-EOF
+    arch -x86_64 mysql -u root <<-EOF
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('codeup');
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 DELETE FROM mysql.user WHERE User='';
@@ -123,7 +123,7 @@ EOF
 install-node() {
 	echo 'We are now going to install node, which lets us execute javascript outside'
 	echo 'of the browser, and gives us access to the node package manager, npm'
-	brew install node
+	arch -x86_64 brew install node
 }
 
 setup() {
@@ -152,7 +152,7 @@ setup() {
 	[ -f "$HOME/.ssh/id_rsa" ] || setup-ssh-keys
 
 	# check if java was installed with brew cask if not install it
-	brew cask list java >/dev/null 2>&1 || install-java
+	arch -x86_64 brew cask list java >/dev/null 2>&1 || install-java
 	# check for tomcat, maven, and mysql
 	which mvn >/dev/null || install-maven
 	which catalina >/dev/null || install-tomcat
