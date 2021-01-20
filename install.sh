@@ -112,12 +112,12 @@ install-mysql(){
     # set a password for the root user, make sure no other users exist, and drop
     # the test db. Set the root password to 'codeup'
     arch -x86_64 mysql -u root <<-EOF
-      SET PASSWORD FOR 'root'@'localhost' = 'codeup';
-      DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-      DELETE FROM mysql.user WHERE User='';
-      DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
-      FLUSH PRIVILEGES;
-    EOF
+  SET PASSWORD FOR 'root'@'localhost' = 'codeup';
+  DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+  DELETE FROM mysql.user WHERE User='';
+  DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+  FLUSH PRIVILEGES;
+EOF
 }
 
 install-node() {
