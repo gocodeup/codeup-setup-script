@@ -44,7 +44,7 @@ install-java(){
     echo 'with a version of java, it may not be the most recent version, and we want'
     echo 'to make sure everyone is on the same version.'
     wait-to-continue
-	  brew install --cask oracle-jdk
+	  brew install --cask zulu
 }
 
 install-tomcat(){
@@ -63,8 +63,15 @@ install-brew(){
     echo 'We are now going to install homebrew, a package manager for OSX.'
     wait-to-continue
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    export PATH=/opt/homebrew/bin:$PATH
-    source ~/.zshrc
+    if [[ "$(uname -m)" == "arm64" ]]; then
+      echo export PATH="/opt/homebrew/bin:${PATH}" >> .zshrc
+      source ~/.zshrc
+    fi
+}
+
+install-intellij(){
+  echo 'We are now going to install intelliJ, Java IDE.'
+  brew install --cask intellij-idea
 }
 
 setup-ssh-keys(){
@@ -136,7 +143,7 @@ setup() {
 	echo '  - xcode tools   - brew'
 	echo '  - java          - maven'
 	echo '  - tomcat        - mysql'
-	echo '  - node'
+	echo '  - node          - intellij'
 	echo '*Note*: if you have already setup any of the above on your computer, this script will _not_'
 	echo '        attempt to reinstall them, please talk to an instructor to ensure everything'
 	echo '        is configured properly'
@@ -150,10 +157,6 @@ setup() {
 	# if they do not exist
 	xcode-select --print-path >/dev/null 2>&1 || install-xcode
 	which brew >/dev/null 2>&1 || install-brew
-	if [[ "$(uname -m)" == "arm64" ]]; then
-    echo export PATH="/opt/homebrew/bin:${PATH}" >> .zshrc
-    source ~/.zshrc
-  fi
 	[ -f "$HOME/.ssh/id_rsa" ] || setup-ssh-keys
 
 	# check if java was installed with brew cask if not install it
@@ -162,6 +165,7 @@ setup() {
 	which mvn >/dev/null || install-maven
 	which catalina >/dev/null || install-tomcat
 	which mysql >/dev/null || install-mysql
+	which intellij >/dev/null || install-intellij
 	# and lastly, node
 	which node >/dev/null || install-node
 
