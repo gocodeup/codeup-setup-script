@@ -10,8 +10,9 @@ need for the java course. We will install the following:
 - [tomcat](http://tomcat.apache.org/): the java webserver
 - [maven](https://maven.apache.org/): a java dependency and build management tool
 - [mysql](https://www.mysql.com/): the database we'll use for the class
-- [node js](https://nodejs.org/en/): a JavaScript runtime outside of the browser
+- [node js](https://nodejs.org/en/): a JavaScript runtime outside the browser
 - [npm](https://www.npmjs.com/): a package manager for JavaScript
+- [intellij](https://www.jetbrains.com/idea/): a Java IDE
 
 In addition, we will:
 
