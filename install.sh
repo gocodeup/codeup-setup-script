@@ -44,8 +44,7 @@ install-java(){
     echo 'with a version of java, it may not be the most recent version, and we want'
     echo 'to make sure everyone is on the same version.'
     wait-to-continue
-	brew tap AdoptOpenJDK/openjdk
-	brew cask install adoptopenjdk8 adoptopenjdk11
+	  brew install --cask oracle-jdk
 }
 
 install-tomcat(){
@@ -63,7 +62,7 @@ install-maven(){
 install-brew(){
     echo 'We are now going to install homebrew, a package manager for OSX.'
     wait-to-continue
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 
 setup-ssh-keys(){
