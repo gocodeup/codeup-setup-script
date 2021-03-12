@@ -63,6 +63,8 @@ install-brew(){
     echo 'We are now going to install homebrew, a package manager for OSX.'
     wait-to-continue
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    export PATH=/opt/homebrew/bin:$PATH
+    source ~/.zshrc
 }
 
 setup-ssh-keys(){
@@ -148,10 +150,14 @@ setup() {
 	# if they do not exist
 	xcode-select --print-path >/dev/null 2>&1 || install-xcode
 	which brew >/dev/null 2>&1 || install-brew
+	if [[ "$(uname -m)" == "arm64" ]]; then
+    echo export PATH="/opt/homebrew/bin:${PATH}" >> .zshrc
+    source ~/.zshrc
+  fi
 	[ -f "$HOME/.ssh/id_rsa" ] || setup-ssh-keys
 
 	# check if java was installed with brew cask if not install it
-	brew cask list java >/dev/null 2>&1 || install-java
+	brew list java >/dev/null 2>&1 || install-java
 	# check for tomcat, maven, and mysql
 	which mvn >/dev/null || install-maven
 	which catalina >/dev/null || install-tomcat
