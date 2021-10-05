@@ -134,13 +134,6 @@ set-git-config(){
 
 	read -p $'Enter the your github email: ' GITHUBEMAIL
 
-  	while [[ ! ($GITHUBEMAIL =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$) ]];
-    	do
-			echo "Invalid email"
-			echo "Please check and re-enter your email when prompted"
-			read -p $'Enter the your github email: ' GITHUBEMAIL
-	done
-
 	git config --global user.name "$USERSNAME"
  	git config --global user.email $GITHUBEMAIL
 }
